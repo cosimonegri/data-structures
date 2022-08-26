@@ -15,7 +15,7 @@ import random
 class DoublyLinkedListTest(unittest.TestCase):
     
     def setUp(self):
-        self.LOOPS = 300
+        self.LOOPS = 200
         self.SIZE = 40
         self.NUM_NULLS = self.SIZE // 5
         self.MAX_RANDOM_NUM = 250
