@@ -65,7 +65,7 @@ class DoublyLinkedList:
         self.__head = self.__tail = None
     
     
-    def isEmpty(self):
+    def empty(self):
         '''
         Return whether or not the linked list is empty, O(1).
         '''
@@ -76,31 +76,31 @@ class DoublyLinkedList:
         '''
         Add a node to the tail of the linked list, O(1).
         '''
-        if self.isEmpty():
+        if self.empty():
             self.__head = self.__tail = Node(data)
         else:
-            newNode = Node(data, prev=self.__tail)
-            self.__tail.next = newNode
-            self.__tail = newNode
+            new_node = Node(data, prev=self.__tail)
+            self.__tail.next = new_node
+            self.__tail = new_node
             
         self.__size += 1
     
     
-    def appendLeft(self, data):
+    def appendleft(self, data):
         '''
         Add a node to the head of the linked list, O(1).
         '''
-        if self.isEmpty():
+        if self.empty():
             self.__head = self.__tail = Node(data)
         else:
-            newNode = Node(data, next=self.__head)
-            self.__head.prev = newNode
-            self.__head = newNode
+            new_node = Node(data, next=self.__head)
+            self.__head.prev = new_node
+            self.__head = new_node
         
         self.__size += 1
     
     
-    def addAt(self, index, data):
+    def insert(self, index, data):
         '''
         Add a node at a specific index, O(n).
         '''
@@ -112,7 +112,7 @@ class DoublyLinkedList:
             return
         
         if index == 0:
-            self.appendLeft(data)
+            self.appendleft(data)
             return
         
         # Search from the front of the linked list
@@ -131,29 +131,29 @@ class DoublyLinkedList:
                 trav = trav.prev
                 i -= 1
             
-        newNode = Node(data, prev=trav, next=trav.next)
-        trav.next.prev = newNode
-        trav.next = newNode
+        new_node = Node(data, prev=trav, next=trav.next)
+        trav.next.prev = new_node
+        trav.next = new_node
         self.__size += 1
     
     
-    def peekRight(self):
+    def peek(self):
         '''
         Return the value of the last node if it exists, O(1).
         '''
-        if self.isEmpty(): raise EmptyList()
+        if self.empty(): raise EmptyList()
         return self.__tail.data
     
     
-    def peekLeft(self):
+    def peekleft(self):
         '''
         Return the value of the first node if it exists, O(1).
         '''
-        if self.isEmpty(): raise EmptyList()
+        if self.empty(): raise EmptyList()
         return self.__head.data
     
     
-    def __removeNode(self, node):
+    def __remove_node(self, node):
         '''
         Remove a node from the linked list,
         and return its value, O(1).
@@ -161,7 +161,7 @@ class DoublyLinkedList:
         if node.next is None:
             return self.pop()
         if node.prev is None:
-            return self.popLeft()
+            return self.popleft()
         
         data = node.data
         node.prev.next = node.next
@@ -180,13 +180,13 @@ class DoublyLinkedList:
         Remove the node at the tail of the linked list
         and return its value, O(1).
         '''
-        if self.isEmpty(): raise EmptyList()
+        if self.empty(): raise EmptyList()
         
         data = self.__tail.data
         self.__tail = self.__tail.prev
         self.__size -= 1
         
-        if (self.isEmpty()):
+        if (self.empty()):
             self.__head = None
         else:
             # Memory cleanup of the node that was just removed
@@ -195,18 +195,18 @@ class DoublyLinkedList:
         return data
 
      
-    def popLeft(self):
+    def popleft(self):
         '''
         Remove the node at the head of the linked list
         and return its value, O(1).
         '''
-        if self.isEmpty(): raise EmptyList()
+        if self.empty(): raise EmptyList()
         
         data = self.__head.data
         self.__head = self.__head.next
         self.__size -= 1
         
-        if self.isEmpty():
+        if self.empty():
             self.__tail = None
         else:
             # Memory cleanup of the node that was just removed
@@ -215,7 +215,22 @@ class DoublyLinkedList:
         return data
     
     
-    def removeAt(self, index):
+    def remove(self, data):
+        '''
+        Remove the first node with a specific value.
+        Return true if a node was deleted, false otherwise, O(n).
+        '''
+        trav = self.__head
+        while trav is not None:
+            if trav.data == data:
+                self.__remove_node(trav)
+                return True
+            trav = trav.next
+        
+        return False
+    
+    
+    def removeindex(self, index):
         '''
         Remove a node at a specific index, O(n).
         '''
@@ -238,22 +253,7 @@ class DoublyLinkedList:
                 trav = trav.prev
                 i -= 1
         
-        return self.__removeNode(trav)
-    
-    
-    def remove(self, data):
-        '''
-        Remove the first node with a specific value.
-        Return true if a node was deleted, false otherwise, O(n).
-        '''
-        trav = self.__head
-        while trav is not None:
-            if trav.data == data:
-                self.__removeNode(trav)
-                return True
-            trav = trav.next
-        
-        return False       
+        return self.__remove_node(trav)      
         
     
     def index(self, data):
@@ -297,7 +297,7 @@ class DoublyLinkedList:
     
     def __next__(self):
         '''
-        To move to the next element, O(1).
+        To move to the next node, O(1).
         '''
         if self.__trav is None:
             raise StopIteration
@@ -317,5 +317,4 @@ class DoublyLinkedList:
             strings.append(str(trav))
             trav = trav.next
         
-        return '[' + ', '.join(strings) + ']'
-        
+        return '[' + ', '.join(strings) + ']'     

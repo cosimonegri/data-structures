@@ -1,33 +1,35 @@
 '''
- * A queue implementation with a doubly linked list.
+ * A queue implementation using a doubly linked list.
  *
  * @author (original JAVA) William Fiset, william.alexandre.fiset@gmail.com
- *                         liujingkun, liujkon@gmail.com
  *         (conversion to Python) Cosimo Giovanni Negri
  * @date   26 Aug 2022
 '''
 
-from Queue import Queue, EmptyQueue
 import sys
 import os
 
 if __package__:
+    from .abstract_queue import AbstractQueue, EmptyQueue
     from ..linkedlist import DoublyLinkedList
 else:
+    sys.path.append(os.path.dirname(__file__))
     sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
+    
+    from abstract_queue import AbstractQueue, EmptyQueue
     from linkedlist import DoublyLinkedList
 
 
-class LinkedQueue(Queue):
+class LinkedQueue(AbstractQueue):
     '''
-    A queue implementation with a doubly linked list.
+    A queue implementation using a doubly linked list.
     '''
     def __init__(self):
         self.__list = DoublyLinkedList()
         self.__iterator = None
     
     
-    def isEmpty(self):
+    def empty(self):
         '''
         Return whether or not the queue is empty, O(1).
         '''
@@ -46,16 +48,16 @@ class LinkedQueue(Queue):
         Remove the node at the front of the queue
         and return its value, O(1).
         '''
-        if self.isEmpty(): raise EmptyQueue()
-        return self.__list.popLeft()
+        if self.empty(): raise EmptyQueue()
+        return self.__list.popleft()
     
     
     def peek(self):
         '''
         Return the value of the node at the front of the queue, O(1).
         '''
-        if self.isEmpty(): raise EmptyQueue()
-        return self.__list.peekLeft()
+        if self.empty(): raise EmptyQueue()
+        return self.__list.peekleft()
     
     
     def __len__(self):
@@ -75,7 +77,7 @@ class LinkedQueue(Queue):
     
     def __next__(self):
         '''
-        To move to the next element, O(1).
+        To move to the next node, O(1).
         '''
         return next(self.__iterator)
     

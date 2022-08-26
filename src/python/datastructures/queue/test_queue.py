@@ -2,14 +2,21 @@
  * A queue unit test.
  *
  * @author (original JAVA) William Fiset, william.alexandre.fiset@gmail.com
- *                         liujingkun, liujkon@gmail.com
  *         (conversion to Python) Cosimo Giovanni Negri
  * @date   26 Aug 2022
 '''
 
-from LinkedQueue import LinkedQueue
-from Queue import EmptyQueue
 import unittest
+import sys
+import os
+
+if __package__:
+    from .linked_queue import LinkedQueue
+    from .abstract_queue import EmptyQueue
+else:
+    sys.path.append(os.path.dirname(__file__))
+    from linked_queue import LinkedQueue
+    from abstract_queue import EmptyQueue
 
 
 class LinkedQueueTest(unittest.TestCase):
@@ -18,42 +25,42 @@ class LinkedQueueTest(unittest.TestCase):
         self.queue = LinkedQueue()
     
     
-    def testEmptyQueue(self):
-        self.assertTrue(self.queue.isEmpty())
+    def test_empty_queue(self):
+        self.assertTrue(self.queue.empty())
         self.assertEqual(len(self.queue), 0)
     
     
-    def testDequeueOfEmpty(self):
+    def test_dequeue_of_empty(self):
         with self.assertRaises(EmptyQueue):
             self.queue.dequeue()
         
     
-    def testPeekOfEmpty(self):
+    def test_peek_of_empty(self):
         with self.assertRaises(EmptyQueue):
             self.queue.peek()
             
     
-    def testEnqueue(self):
+    def test_enqueue(self):
         self.queue.enqueue(3)
         self.assertEqual(len(self.queue), 1)
     
     
-    def testDequeue(self):
+    def test_dequeue(self):
         self.queue.enqueue(3)
         self.assertEqual(self.queue.dequeue(), 3)
         self.assertEqual(len(self.queue), 0)
     
     
-    def testPeek(self):
+    def test_peek(self):
         self.queue.enqueue(3)
         self.assertEqual(self.queue.peek(), 3)
         self.assertEqual(len(self.queue), 1)
     
     
-    def testGeneral(self):
-        self.assertTrue(self.queue.isEmpty())
+    def test_general(self):
+        self.assertTrue(self.queue.empty())
         self.queue.enqueue(5)
-        self.assertFalse(self.queue.isEmpty())
+        self.assertFalse(self.queue.empty())
         self.queue.enqueue(6)
         self.assertEqual(len(self.queue), 2)
         self.assertEqual(self.queue.peek(), 5)
@@ -64,28 +71,28 @@ class LinkedQueueTest(unittest.TestCase):
         self.assertEqual(len(self.queue), 1)
         self.assertEqual(self.queue.dequeue(), 6)
         self.assertEqual(len(self.queue), 0)
-        self.assertTrue(self.queue.isEmpty())
+        self.assertTrue(self.queue.empty())
     
     
-    def testIteration(self):
+    def test_iteration(self):
         with self.assertRaises(StopIteration):
-            iterObj = iter(self.queue)
-            next(iterObj)
+            iter_obj = iter(self.queue)
+            next(iter_obj)
             
         self.queue.enqueue(6)
         self.queue.enqueue(7)
         self.queue.enqueue(8)
         self.assertEqual(len(self.queue), 3)
         
-        iterObj = iter(self.queue)
-        self.assertEqual(next(iterObj), 6)
-        self.assertEqual(next(iterObj), 7)
-        self.assertEqual(next(iterObj), 8)
+        iter_obj = iter(self.queue)
+        self.assertEqual(next(iter_obj), 6)
+        self.assertEqual(next(iter_obj), 7)
+        self.assertEqual(next(iter_obj), 8)
         with self.assertRaises(StopIteration):
-            next(iterObj)
+            next(iter_obj)
     
     
-    def testToString(self):
+    def test_to_string(self):
         self.assertEqual(str(self.queue), "[]")
         self.queue.enqueue('a')
         self.assertEqual(str(self.queue), "[a]")

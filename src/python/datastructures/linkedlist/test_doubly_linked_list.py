@@ -6,10 +6,17 @@
  * @date   25 Aug 2022
 '''
 
-from DoublyLinkedList import DoublyLinkedList, EmptyList, InvalidIndex
 import unittest
+import sys
+import os
 from collections import deque
 import random
+
+if __package__:
+    from .doubly_linked_list import DoublyLinkedList, EmptyList, InvalidIndex
+else:
+    sys.path.append(os.path.dirname(__file__))
+    from doubly_linked_list import DoublyLinkedList, EmptyList, InvalidIndex
 
 
 class DoublyLinkedListTest(unittest.TestCase):
@@ -23,95 +30,75 @@ class DoublyLinkedListTest(unittest.TestCase):
         self.list = DoublyLinkedList()
     
     
-    def testEmptyList(self):
-        self.assertTrue(self.list.isEmpty())
+    def test_empty_list(self):
+        self.assertTrue(self.list.empty())
         self.assertEqual(len(self.list), 0)
     
     
-    def testPopOfEmpty(self):
+    def test_pop_of_empty(self):
         with self.assertRaises(EmptyList):
             self.list.pop()
     
     
-    def testPopLeftOfEmpty(self):
+    def test_popleft_of_empty(self):
         with self.assertRaises(EmptyList):
-            self.list.popLeft()
+            self.list.popleft()
     
     
-    def testPeekRightOfEmpty(self):
+    def test_peek_of_empty(self):
         with self.assertRaises(EmptyList):
-            self.list.peekRight()
+            self.list.peek()
     
     
-    def testPeekLeftOfEmpty(self):
+    def test_peekleft_of_empty(self):
         with self.assertRaises(EmptyList):
-            self.list.peekLeft()
+            self.list.peekleft()
     
     
-    def testAppend(self):
+    def test_append(self):
         self.list.append(3)
         self.assertEqual(len(self.list), 1)
         self.list.append(5)
         self.assertEqual(len(self.list), 2)
     
     
-    def testAppendLeft(self):
-        self.list.appendLeft(3)
+    def test_appendleft(self):
+        self.list.appendleft(3)
         self.assertEqual(len(self.list), 1)
-        self.list.appendLeft(5)
+        self.list.appendleft(5)
         self.assertEqual(len(self.list), 2)
     
     
-    def testAddAt(self):
+    def test_insert(self):
         with self.assertRaises(InvalidIndex):
-            self.list.addAt(-1, 5)
+            self.list.insert(-1, 5)
         with self.assertRaises(InvalidIndex):
-            self.list.addAt(1, 5)
-        self.list.addAt(0, 1)
+            self.list.insert(1, 5)
+        self.list.insert(0, 1)
         self.assertEqual(len(self.list), 1)
-        self.list.addAt(1, 2)
+        self.list.insert(1, 2)
         self.assertEqual(len(self.list), 2)
-        self.list.addAt(1, 3)
+        self.list.insert(1, 3)
         self.assertEqual(len(self.list), 3)
-        self.list.addAt(2, 4)
+        self.list.insert(2, 4)
         self.assertEqual(len(self.list), 4)
-        self.list.addAt(1, 8)
+        self.list.insert(1, 8)
         self.assertEqual(len(self.list), 5)
     
     
-    def testPop(self):
+    def test_pop(self):
         self.list.append(5)
         self.assertEqual(self.list.pop(), 5)
-        self.assertTrue(self.list.isEmpty())
+        self.assertTrue(self.list.empty())
         
     
-    def testPopLeft(self):
-        self.list.appendLeft(3)
-        self.assertEqual(self.list.popLeft(), 3)
-        self.assertTrue(self.list.isEmpty())
+    def test_popleft(self):
+        self.list.appendleft(3)
+        self.assertEqual(self.list.popleft(), 3)
+        self.assertTrue(self.list.empty())
     
     
-    def testRemoveAt(self):
-        with self.assertRaises(InvalidIndex):
-            self.list.removeAt(-1)
-        with self.assertRaises(InvalidIndex):
-            self.list.removeAt(0)
-        with self.assertRaises(InvalidIndex):
-            self.list.removeAt(1)
-        self.list.append(1)
-        self.list.append(2)
-        self.list.append(3)
-        self.list.append(4)
-        self.list.removeAt(0)
-        self.list.removeAt(1)
-        self.assertEqual(self.list.peekRight(), 4)
-        self.assertEqual(self.list.peekLeft(), 2)
-        self.list.removeAt(1)
-        self.list.removeAt(0)
-        self.assertEqual(len(self.list), 0)
-    
-    
-    def testRemove(self):
+    def test_remove(self):
         self.assertFalse(self.list.remove('a'))
         self.list.append('a')
         self.list.append('b')
@@ -130,56 +117,76 @@ class DoublyLinkedListTest(unittest.TestCase):
         self.assertEqual(len(self.list), 0)   
     
     
-    def testPeekRight(self):
+    def test_removeindex(self):
+        with self.assertRaises(InvalidIndex):
+            self.list.removeindex(-1)
+        with self.assertRaises(InvalidIndex):
+            self.list.removeindex(0)
+        with self.assertRaises(InvalidIndex):
+            self.list.removeindex(1)
+        self.list.append(1)
+        self.list.append(2)
+        self.list.append(3)
+        self.list.append(4)
+        self.list.removeindex(0)
+        self.list.removeindex(1)
+        self.assertEqual(self.list.peek(), 4)
+        self.assertEqual(self.list.peekleft(), 2)
+        self.list.removeindex(1)
+        self.list.removeindex(0)
+        self.assertEqual(len(self.list), 0)
+    
+    
+    def test_peek(self):
         self.list.append(5)
-        self.assertEqual(self.list.peekRight(), 5)
+        self.assertEqual(self.list.peek(), 5)
         self.assertEqual(len(self.list), 1)
     
     
-    def testPeekLeft(self):
-        self.list.appendLeft(3)
-        self.assertEqual(self.list.peekLeft(), 3)
+    def test_peekleft(self):
+        self.list.appendleft(3)
+        self.assertEqual(self.list.peekleft(), 3)
         self.assertEqual(len(self.list), 1)
     
     
-    def testPeek(self):
+    def test_multiple_peek(self):
         # 5
-        self.list.appendLeft(5)
-        self.assertEqual(self.list.peekRight(), 5)
-        self.assertEqual(self.list.peekLeft(), 5)
+        self.list.appendleft(5)
+        self.assertEqual(self.list.peek(), 5)
+        self.assertEqual(self.list.peekleft(), 5)
         
         # 6 - 5
-        self.list.appendLeft(6)
-        self.assertEqual(self.list.peekRight(), 5)
-        self.assertEqual(self.list.peekLeft(), 6)
+        self.list.appendleft(6)
+        self.assertEqual(self.list.peek(), 5)
+        self.assertEqual(self.list.peekleft(), 6)
         
         # 7 - 6 - 5
-        self.list.appendLeft(7)
-        self.assertEqual(self.list.peekRight(), 5)
-        self.assertEqual(self.list.peekLeft(), 7)
+        self.list.appendleft(7)
+        self.assertEqual(self.list.peek(), 5)
+        self.assertEqual(self.list.peekleft(), 7)
         
         # 7 - 6 - 5 - 8
         self.list.append(8)
-        self.assertEqual(self.list.peekRight(), 8)
-        self.assertEqual(self.list.peekLeft(), 7)
+        self.assertEqual(self.list.peek(), 8)
+        self.assertEqual(self.list.peekleft(), 7)
         
         # 7 - 6 - 5
         self.list.pop()
-        self.assertEqual(self.list.peekRight(), 5)
-        self.assertEqual(self.list.peekLeft(), 7)
+        self.assertEqual(self.list.peek(), 5)
+        self.assertEqual(self.list.peekleft(), 7)
         
         # 7 - 6
         self.list.pop()
-        self.assertEqual(self.list.peekRight(), 6)
-        self.assertEqual(self.list.peekLeft(), 7)
+        self.assertEqual(self.list.peek(), 6)
+        self.assertEqual(self.list.peekleft(), 7)
         
         # 6
-        self.list.popLeft()
-        self.assertEqual(self.list.peekRight(), 6)
-        self.assertEqual(self.list.peekLeft(), 6)
+        self.list.popleft()
+        self.assertEqual(self.list.peek(), 6)
+        self.assertEqual(self.list.peekleft(), 6)
     
     
-    def testClear(self):
+    def test_clear(self):
         self.list.append(22)
         self.list.append(33)
         self.list.append(44)
@@ -194,7 +201,7 @@ class DoublyLinkedListTest(unittest.TestCase):
         self.assertEqual(len(self.list), 0)
     
     
-    def testIndex(self):
+    def test_index(self):
         self.assertEqual(self.list.index(3), None)
         self.list.append(22)
         self.assertEqual(self.list.index(22), 0)
@@ -205,11 +212,11 @@ class DoublyLinkedListTest(unittest.TestCase):
         self.assertEqual(self.list.index(55), None)
         
     
-    def testRandomRemove(self):
+    def test_random_remove(self):
         pythonList = deque()
         
         for _ in range(self.LOOPS):
-            randNums = self.getRandList()
+            randNums = self.get_rand_list()
             
             for value in randNums:
                 self.list.append(value)
@@ -239,11 +246,11 @@ class DoublyLinkedListTest(unittest.TestCase):
             self.assertEqual(len(pythonList), 0)
     
     
-    def testRandomRemoveAt(self):
+    def test_random_removeindex(self):
         pythonList = deque()
         
         for _ in range(self.LOOPS):
-            randNums = self.getRandList()
+            randNums = self.get_rand_list()
             
             for value in randNums:
                 self.list.append(value)
@@ -252,7 +259,7 @@ class DoublyLinkedListTest(unittest.TestCase):
             for _ in range(len(randNums)):
                 index = random.randint(0, len(self.list) - 1)
                 
-                value1 = self.list.removeAt(index)
+                value1 = self.list.removeindex(index)
                 value2 = pythonList[index]
                 del pythonList[index]
                 
@@ -275,14 +282,14 @@ class DoublyLinkedListTest(unittest.TestCase):
             self.assertEqual(len(pythonList), 0)
     
     
-    def testRandomIndex(self):
+    def test_random_index(self):
         pythonList = deque()
         
         for _ in range(self.LOOPS):
             self.list.clear()
             pythonList.clear()
             
-            randNums = self.getUniqueRandList()
+            randNums = self.get_unique_rand_list()
             
             for value in randNums:
                 self.list.append(value)
@@ -313,32 +320,32 @@ class DoublyLinkedListTest(unittest.TestCase):
             self.assertEqual(len(pythonList), len(randNums))
     
     
-    def testContains(self):
+    def test_contains(self):
         self.assertFalse(3 in self.list)
         self.list.append(3)
         self.assertTrue(3 in self.list)
         self.assertEqual(len(self.list), 1)
     
     
-    def testIteration(self):
+    def test_iteration(self):
         with self.assertRaises(StopIteration):
-            iterObj = iter(self.list)
-            next(iterObj)
+            iter_obj = iter(self.list)
+            next(iter_obj)
             
         self.list.append(6)
         self.list.append(7)
         self.list.append(8)
         self.assertEqual(len(self.list), 3)
         
-        iterObj = iter(self.list)
-        self.assertEqual(next(iterObj), 6)
-        self.assertEqual(next(iterObj), 7)
-        self.assertEqual(next(iterObj), 8)
+        iter_obj = iter(self.list)
+        self.assertEqual(next(iter_obj), 6)
+        self.assertEqual(next(iter_obj), 7)
+        self.assertEqual(next(iter_obj), 8)
         with self.assertRaises(StopIteration):
-            next(iterObj)
+            next(iter_obj)
     
     
-    def testToString(self):
+    def test_to_string(self):
         self.assertEqual(str(self.list), "[]")
         self.list.append('a')
         self.assertEqual(str(self.list), "[a]")
@@ -354,7 +361,7 @@ class DoublyLinkedListTest(unittest.TestCase):
         self.assertEqual(str(self.list), "[a, b, c, d]")
     
     
-    def getRandList(self):
+    def get_rand_list(self):
         '''
         Generate a list of random numbers.
         '''
@@ -366,7 +373,7 @@ class DoublyLinkedListTest(unittest.TestCase):
         return list
 
     
-    def getUniqueRandList(self):
+    def get_unique_rand_list(self):
         '''
         Generate a list of unique random numbers.
         '''

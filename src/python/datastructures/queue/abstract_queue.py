@@ -20,14 +20,14 @@ class EmptyQueue(Exception):
         return self.message
 
 
-class Queue(ABC):
+class AbstractQueue(ABC):
     
     @abstractmethod
     def __len__(self):
         pass
     
     @abstractmethod
-    def isEmpty(self):
+    def empty(self):
         pass
     
     @abstractmethod
