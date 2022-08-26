@@ -40,6 +40,9 @@ class Node:
 
 
 class DoublyLinkedList:
+    '''
+    A doubly linked list implementation.
+    '''
     def __init__(self):
         self.__size = 0
         self.__head = None
@@ -62,16 +65,9 @@ class DoublyLinkedList:
         self.__head = self.__tail = None
     
     
-    def __len__(self):
-        '''
-        Return the size of the linked list, O(1).
-        '''
-        return self.__size
-    
-    
     def isEmpty(self):
         '''
-        Is the linked list empty?
+        Return whether or not the linked list is empty, O(1).
         '''
         return self.__size == 0
     
@@ -277,6 +273,13 @@ class DoublyLinkedList:
         return None
     
     
+    def __len__(self):
+        '''
+        Return the size of the linked list, O(1).
+        '''
+        return self.__size
+    
+    
     def __contains__(self, data):
         '''
         Check if a value is contained within the linked list, O(n).
@@ -305,6 +308,9 @@ class DoublyLinkedList:
     
     
     def __str__(self):
+        '''
+        Return a string to print the linked list, O(n)*.
+        '''
         strings = []
         trav = self.__head
         while trav is not None:
