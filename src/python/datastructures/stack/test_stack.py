@@ -10,14 +10,14 @@ import unittest
 import sys
 import os
 
-if __package__:
-    from .linked_stack import LinkedStack
+if __name__ == "__main__":
+    sys.path.append(os.path.join(os.path.dirname(__file__), '..', '..'))
+    from datastructures.stack.linked_stack import LinkedStack
 else:
-    sys.path.append(os.path.dirname(__file__))
-    from linked_stack import LinkedStack
+    from .linked_stack import LinkedStack
 
 
-class LinkedStackTest(unittest.TestCase):
+class StackTest(unittest.TestCase):
 
     def setUp(self):
         self.stack = LinkedStack()

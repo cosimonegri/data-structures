@@ -6,18 +6,8 @@
  * @date   26 Aug 2022
 '''
 
-import sys
-import os
-
-if __package__:
-    from .abstract_queue import AbstractQueue
-    from ..linkedlist import DoublyLinkedList
-else:
-    sys.path.append(os.path.dirname(__file__))
-    sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
-    
-    from abstract_queue import AbstractQueue
-    from linkedlist import DoublyLinkedList
+from .abstract_queue import AbstractQueue
+from ..linkedlist.doubly_linked_list import DoublyLinkedList
 
 
 class LinkedQueue(AbstractQueue):

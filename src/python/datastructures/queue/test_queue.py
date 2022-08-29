@@ -10,14 +10,14 @@ import unittest
 import sys
 import os
 
-if __package__:
-    from .linked_queue import LinkedQueue
+if __name__ == "__main__":
+    sys.path.append(os.path.join(os.path.dirname(__file__), '..', '..'))
+    from datastructures.queue.linked_queue import LinkedQueue
 else:
-    sys.path.append(os.path.dirname(__file__))
-    from linked_queue import LinkedQueue
+    from .linked_queue import LinkedQueue
 
 
-class LinkedQueueTest(unittest.TestCase):
+class QueueTest(unittest.TestCase):
 
     def setUp(self):
         self.queue = LinkedQueue()

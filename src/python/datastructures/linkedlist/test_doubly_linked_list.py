@@ -12,11 +12,11 @@ import os
 from collections import deque
 import random
 
-if __package__:
-    from .doubly_linked_list import DoublyLinkedList
+if __name__ == "__main__":
+    sys.path.append(os.path.join(os.path.dirname(__file__), '..', '..'))
+    from datastructures.linkedlist.doubly_linked_list import DoublyLinkedList
 else:
-    sys.path.append(os.path.dirname(__file__))
-    from doubly_linked_list import DoublyLinkedList
+    from .doubly_linked_list import DoublyLinkedList
 
 
 class DoublyLinkedListTest(unittest.TestCase):
