@@ -10,24 +10,10 @@
 from abc import ABC, abstractmethod
 
 
-class EmptyStack(Exception):
-    
-    def __init__(self, message="Empty stack"):
-        self.message = message
-        super().__init__(self.message)
-    
-    def __str__(self):
-        return self.message
-
-
 class AbstractStack(ABC):
     
     @abstractmethod
-    def __len__(self):
-        pass
-    
-    @abstractmethod
-    def empty(self):
+    def isempty(self):
         pass
     
     @abstractmethod
@@ -40,4 +26,20 @@ class AbstractStack(ABC):
     
     @abstractmethod
     def pop(self):
+        pass
+    
+    @abstractmethod
+    def __len__(self):
+        pass
+    
+    @abstractmethod
+    def __iter__(self):
+        pass
+    
+    @abstractmethod
+    def __next__(self):
+        pass
+    
+    @abstractmethod
+    def __str__(self):
         pass

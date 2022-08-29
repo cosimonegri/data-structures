@@ -12,11 +12,9 @@ import os
 
 if __package__:
     from .linked_stack import LinkedStack
-    from .abstract_stack import EmptyStack
 else:
     sys.path.append(os.path.dirname(__file__))
     from linked_stack import LinkedStack
-    from abstract_stack import EmptyStack
 
 
 class LinkedStackTest(unittest.TestCase):
@@ -26,17 +24,17 @@ class LinkedStackTest(unittest.TestCase):
     
     
     def test_empty_stack(self):
-        self.assertTrue(self.stack.empty())
+        self.assertTrue(self.stack.isempty())
         self.assertEqual(len(self.stack), 0)
     
     
     def test_pop_of_empty(self):
-        with self.assertRaises(EmptyStack):
+        with self.assertRaises(IndexError):
             self.stack.pop()
         
     
     def test_peek_of_empty(self):
-        with self.assertRaises(EmptyStack):
+        with self.assertRaises(IndexError):
             self.stack.peek()
             
     
@@ -58,9 +56,9 @@ class LinkedStackTest(unittest.TestCase):
     
     
     def test_general(self):
-        self.assertTrue(self.stack.empty())
+        self.assertTrue(self.stack.isempty())
         self.stack.push(5)
-        self.assertFalse(self.stack.empty())
+        self.assertFalse(self.stack.isempty())
         self.stack.push(6)
         self.assertEqual(len(self.stack), 2)
         self.assertEqual(self.stack.peek(), 6)
@@ -71,7 +69,7 @@ class LinkedStackTest(unittest.TestCase):
         self.assertEqual(len(self.stack), 1)
         self.assertEqual(self.stack.pop(), 5)
         self.assertEqual(len(self.stack), 0)
-        self.assertTrue(self.stack.empty())
+        self.assertTrue(self.stack.isempty())
     
     
     def test_iteration(self):

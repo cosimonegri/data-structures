@@ -10,13 +10,13 @@ import sys
 import os
 
 if __package__:
-    from .abstract_stack import AbstractStack, EmptyStack
+    from .abstract_stack import AbstractStack
     from ..linkedlist import DoublyLinkedList
 else:
     sys.path.append(os.path.dirname(__file__))
     sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
     
-    from abstract_stack import AbstractStack, EmptyStack
+    from abstract_stack import AbstractStack
     from linkedlist import DoublyLinkedList
 
 
@@ -29,7 +29,7 @@ class LinkedStack(AbstractStack):
         self.__iterator = None
     
     
-    def empty(self):
+    def isempty(self):
         '''
         Return whether or not the stack is empty, O(1).
         '''
@@ -47,7 +47,8 @@ class LinkedStack(AbstractStack):
         '''
         Pop a node off the stack and return its value, O(1).
         '''
-        if self.empty(): raise EmptyStack()
+        if self.isempty():
+            raise IndexError("pop from empty stack")
         return self.__list.pop()
     
     
@@ -55,7 +56,8 @@ class LinkedStack(AbstractStack):
         '''
         Return the value of the node at the top of the stack, O(1).
         '''
-        if self.empty(): raise EmptyStack()
+        if self.isempty():
+            raise IndexError("peek of empty stack")
         return self.__list.peek()
     
     

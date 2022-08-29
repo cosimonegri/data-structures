@@ -12,11 +12,9 @@ import os
 
 if __package__:
     from .linked_queue import LinkedQueue
-    from .abstract_queue import EmptyQueue
 else:
     sys.path.append(os.path.dirname(__file__))
     from linked_queue import LinkedQueue
-    from abstract_queue import EmptyQueue
 
 
 class LinkedQueueTest(unittest.TestCase):
@@ -26,17 +24,17 @@ class LinkedQueueTest(unittest.TestCase):
     
     
     def test_empty_queue(self):
-        self.assertTrue(self.queue.empty())
+        self.assertTrue(self.queue.isempty())
         self.assertEqual(len(self.queue), 0)
     
     
     def test_dequeue_of_empty(self):
-        with self.assertRaises(EmptyQueue):
+        with self.assertRaises(IndexError):
             self.queue.dequeue()
         
     
     def test_peek_of_empty(self):
-        with self.assertRaises(EmptyQueue):
+        with self.assertRaises(IndexError):
             self.queue.peek()
             
     
@@ -58,9 +56,9 @@ class LinkedQueueTest(unittest.TestCase):
     
     
     def test_general(self):
-        self.assertTrue(self.queue.empty())
+        self.assertTrue(self.queue.isempty())
         self.queue.enqueue(5)
-        self.assertFalse(self.queue.empty())
+        self.assertFalse(self.queue.isempty())
         self.queue.enqueue(6)
         self.assertEqual(len(self.queue), 2)
         self.assertEqual(self.queue.peek(), 5)
@@ -71,7 +69,7 @@ class LinkedQueueTest(unittest.TestCase):
         self.assertEqual(len(self.queue), 1)
         self.assertEqual(self.queue.dequeue(), 6)
         self.assertEqual(len(self.queue), 0)
-        self.assertTrue(self.queue.empty())
+        self.assertTrue(self.queue.isempty())
     
     
     def test_iteration(self):

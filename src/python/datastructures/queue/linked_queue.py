@@ -10,13 +10,13 @@ import sys
 import os
 
 if __package__:
-    from .abstract_queue import AbstractQueue, EmptyQueue
+    from .abstract_queue import AbstractQueue
     from ..linkedlist import DoublyLinkedList
 else:
     sys.path.append(os.path.dirname(__file__))
     sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
     
-    from abstract_queue import AbstractQueue, EmptyQueue
+    from abstract_queue import AbstractQueue
     from linkedlist import DoublyLinkedList
 
 
@@ -29,7 +29,7 @@ class LinkedQueue(AbstractQueue):
         self.__iterator = None
     
     
-    def empty(self):
+    def isempty(self):
         '''
         Return whether or not the queue is empty, O(1).
         '''
@@ -48,7 +48,8 @@ class LinkedQueue(AbstractQueue):
         Remove the node at the front of the queue
         and return its value, O(1).
         '''
-        if self.empty(): raise EmptyQueue()
+        if self.isempty():
+            raise IndexError("dequeue from empty queue")
         return self.__list.popleft()
     
     
@@ -56,7 +57,8 @@ class LinkedQueue(AbstractQueue):
         '''
         Return the value of the node at the front of the queue, O(1).
         '''
-        if self.empty(): raise EmptyQueue()
+        if self.isempty():
+            raise IndexError("peek of empty queue")
         return self.__list.peekleft()
     
     
