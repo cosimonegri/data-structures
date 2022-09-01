@@ -14,7 +14,7 @@ If you want to use some of these data structures, run the following command in y
 git clone https://github.com/cosimonegri/data-structures.git
 ```
 
-Then import the desired data structure in a file:
+Then import the desired data structure in your file:
 
 ```
 from data-structures.src.datastructures import DSName
