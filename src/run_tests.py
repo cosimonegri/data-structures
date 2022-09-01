@@ -12,11 +12,12 @@ from datastructures.queue.test_queue import QueueTest
 from datastructures.stack.test_stack import StackTest
 from datastructures.hashtable.test_hash_table import HashTableTest
 from datastructures.set.test_set import SetTest
+from datastructures.binarysearchtree.test_binary_search_tree import BinarySearchTreeTest
 
-# add automatic imports with a recursive os.walk ???
 
-# for each file that starts with "test_", look for something
-# that ends with "Test" in dir(file)
+# IDEA: dd automatic imports with a recursive os.walk,
+# for each file that starts with "test_"
+# look for something that ends with "Test" in dir(file)
 
 
 def get_tests(unit_test):
@@ -68,6 +69,7 @@ if __name__ == '__main__':
     expand_suite(suite, StackTest)
     expand_suite(suite, HashTableTest)
     expand_suite(suite, SetTest)
+    expand_suite(suite, BinarySearchTreeTest)
     
     # Run all the tests
     runner.run(suite)
