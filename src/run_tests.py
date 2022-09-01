@@ -11,6 +11,7 @@ from datastructures.linkedlist.test_doubly_linked_list import DoublyLinkedListTe
 from datastructures.queue.test_queue import QueueTest
 from datastructures.stack.test_stack import StackTest
 from datastructures.hashtable.test_hash_table import HashTableTest
+from datastructures.set.test_set import SetTest
 
 # add automatic imports with a recursive os.walk ???
 
@@ -66,6 +67,7 @@ if __name__ == '__main__':
     expand_suite(suite, QueueTest)
     expand_suite(suite, StackTest)
     expand_suite(suite, HashTableTest)
+    expand_suite(suite, SetTest)
     
     # Run all the tests
     runner.run(suite)
