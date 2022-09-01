@@ -1,18 +1,18 @@
 '''
- * A stack implementation using a doubly linked list.
+ * A queue implementation using a doubly linked list.
  *
- * @author (original JAVA) William Fiset, william.alexandre.fiset@gmail.com
- *         (conversion to Python) Cosimo Giovanni Negri
- * @date   26 Aug 2022
+ * @author  Cosimo Giovanni Negri
+ * @mention William Fiset, william.alexandre.fiset@gmail.com
+ * @date    26 Aug 2022
 '''
 
-from .abstract_stack import AbstractStack
+from .abstract_queue import AbstractQueue
 from ..linkedlist.doubly_linked_list import DoublyLinkedList
 
 
-class LinkedStack(AbstractStack):
+class LinkedQueue(AbstractQueue):
     '''
-    A stack implementation using a doubly linked list.
+    A queue implementation using a doubly linked list.
     '''
     def __init__(self):
         self.__list = DoublyLinkedList()
@@ -21,39 +21,40 @@ class LinkedStack(AbstractStack):
     
     def isempty(self):
         '''
-        Return whether or not the stack is empty, O(1).
+        Return whether or not the queue is empty, O(1).
         '''
         return len(self.__list) == 0
     
     
-    def push(self, data):
+    def enqueue(self, value):
         '''
-        Push a node on the stack, O(1).
+        Add a node to the back of the queue, O(1).
         '''
-        self.__list.append(data)
+        self.__list.append(value)
     
     
-    def pop(self):
+    def dequeue(self):
         '''
-        Pop a node off the stack and return its value, O(1).
+        Remove the node at the front of the queue
+        and return its value, O(1).
         '''
         if self.isempty():
-            raise IndexError("pop from empty stack")
-        return self.__list.pop()
+            raise IndexError("dequeue from empty queue")
+        return self.__list.popleft()
     
     
     def peek(self):
         '''
-        Return the value of the node at the top of the stack, O(1).
+        Return the value of the node at the front of the queue, O(1).
         '''
         if self.isempty():
-            raise IndexError("peek of empty stack")
-        return self.__list.peek()
+            raise IndexError("peek of empty queue")
+        return self.__list.peekleft()
     
     
     def __len__(self):
         '''
-        Return the size of the stack, O(1).
+        Return the size of the queue, O(1).
         '''
         return len(self.__list)
     
@@ -75,6 +76,6 @@ class LinkedStack(AbstractStack):
     
     def __str__(self):
         '''
-        Return a string to print the stack, O(n)*.
+        Return a string to print the queue, O(n)*.
         '''
         return str(self.__list)

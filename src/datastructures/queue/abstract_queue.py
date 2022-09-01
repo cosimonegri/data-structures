@@ -1,9 +1,7 @@
 '''
- * An abstract base class for queue.
+ * An abstract base class for a queue.
  *
- * @author (original JAVA) William Fiset, william.alexandre.fiset@gmail.com
- *                         liujingkun, liujkon@gmail.com
- *         (conversion to Python) Cosimo Giovanni Negri
+ * @author Cosimo Giovanni Negri
  * @date   26 Aug 2022
 '''
 
@@ -17,7 +15,7 @@ class AbstractQueue(ABC):
         pass
     
     @abstractmethod
-    def enqueue(self, data):
+    def enqueue(self, value):
         pass
     
     @abstractmethod

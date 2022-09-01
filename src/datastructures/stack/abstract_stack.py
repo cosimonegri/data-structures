@@ -1,9 +1,7 @@
 '''
- * An abstract base class for stack.
+ * An abstract base class for a stack.
  *
- * @author (original JAVA) William Fiset, william.alexandre.fiset@gmail.com
- *                         liujingkun, liujkon@gmail.com
- *         (conversion to Python) Cosimo Giovanni Negri
+ * @author  Cosimo Giovanni Negri
  * @date   26 Aug 2022
 '''
 
@@ -17,7 +15,7 @@ class AbstractStack(ABC):
         pass
     
     @abstractmethod
-    def push(self, data):
+    def push(self, value):
         pass
     
     @abstractmethod

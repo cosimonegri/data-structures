@@ -1,9 +1,9 @@
 '''
  * A queue unit test.
  *
- * @author (original JAVA) William Fiset, william.alexandre.fiset@gmail.com
- *         (conversion to Python) Cosimo Giovanni Negri
- * @date   26 Aug 2022
+ * @author  Cosimo Giovanni Negri
+ * @mention William Fiset, william.alexandre.fiset@gmail.com
+ * @date    26 Aug 2022
 '''
 
 import unittest

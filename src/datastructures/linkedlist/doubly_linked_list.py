@@ -1,22 +1,22 @@
 '''
  * A doubly linked list implementation.
  *
- * @author (original JAVA) William Fiset, william.alexandre.fiset@gmail.com
- *         (conversion to Python) Cosimo Giovanni Negri
- * @date   25 Aug 2022
+ * @author  Cosimo Giovanni Negri
+ * @mention William Fiset, william.alexandre.fiset@gmail.com
+ * @date    25 Aug 2022
 '''
 
 class Node:
     '''
     Node class to represent an element of the linked list.
     '''
-    def __init__(self, data, prev=None, next=None):
-        self.data = data
+    def __init__(self, value, prev=None, next=None):
+        self.value = value
         self.prev = prev
         self.next = next
         
     def __str__(self):
-        return str(self.data)
+        return str(self.value)
 
 
 class DoublyLinkedList:
@@ -53,35 +53,35 @@ class DoublyLinkedList:
         return self.__size == 0
     
     
-    def append(self, data):
+    def append(self, value):
         '''
         Add a node to the tail of the linked list, O(1).
         '''
         if self.isempty():
-            self.__head = self.__tail = Node(data)
+            self.__head = self.__tail = Node(value)
         else:
-            new_node = Node(data, prev=self.__tail)
+            new_node = Node(value, prev=self.__tail)
             self.__tail.next = new_node
             self.__tail = new_node
             
         self.__size += 1
     
     
-    def appendleft(self, data):
+    def appendleft(self, value):
         '''
         Add a node to the head of the linked list, O(1).
         '''
         if self.isempty():
-            self.__head = self.__tail = Node(data)
+            self.__head = self.__tail = Node(value)
         else:
-            new_node = Node(data, next=self.__head)
+            new_node = Node(value, next=self.__head)
             self.__head.prev = new_node
             self.__head = new_node
         
         self.__size += 1
     
     
-    def insert(self, index, data):
+    def insert(self, index, value):
         '''
         Add a node at a specific index, O(n).
         '''
@@ -89,11 +89,11 @@ class DoublyLinkedList:
             raise IndexError("list index out of range")
         
         if index == self.__size:
-            self.append(data)
+            self.append(value)
             return
         
         if index == 0:
-            self.appendleft(data)
+            self.appendleft(value)
             return
         
         # Search from the front of the linked list
@@ -112,7 +112,7 @@ class DoublyLinkedList:
                 trav = trav.prev
                 i -= 1
             
-        new_node = Node(data, prev=trav, next=trav.next)
+        new_node = Node(value, prev=trav, next=trav.next)
         trav.next.prev = new_node
         trav.next = new_node
         self.__size += 1
@@ -124,7 +124,7 @@ class DoublyLinkedList:
         '''
         if self.isempty():
             raise IndexError("peek of empty list")
-        return self.__tail.data
+        return self.__tail.value
     
     
     def peekleft(self):
@@ -133,7 +133,7 @@ class DoublyLinkedList:
         '''
         if self.isempty():
             raise IndexError("peekleft of empty list")
-        return self.__head.data
+        return self.__head.value
     
     
     def __remove_node(self, node):
@@ -146,7 +146,7 @@ class DoublyLinkedList:
         if node.prev is None:
             return self.popleft()
         
-        data = node.data
+        value = node.value
         node.prev.next = node.next
         node.next.prev = node.prev
         self.__size -= 1
@@ -155,7 +155,7 @@ class DoublyLinkedList:
         node.prev = node.next = None
         node = None
         
-        return data
+        return value
     
     
     def pop(self):
@@ -166,7 +166,7 @@ class DoublyLinkedList:
         if self.isempty():
             raise IndexError("pop from empty list")
         
-        data = self.__tail.data
+        value = self.__tail.value
         self.__tail = self.__tail.prev
         self.__size -= 1
         
@@ -176,7 +176,7 @@ class DoublyLinkedList:
             # Memory cleanup of the node that was just removed
             self.__tail.next = None
         
-        return data
+        return value
 
      
     def popleft(self):
@@ -187,7 +187,7 @@ class DoublyLinkedList:
         if self.isempty():
             raise IndexError("popleft from empty list")
         
-        data = self.__head.data
+        value = self.__head.value
         self.__head = self.__head.next
         self.__size -= 1
         
@@ -197,18 +197,18 @@ class DoublyLinkedList:
             # Memory cleanup of the node that was just removed
             self.__head.prev = None
         
-        return data
+        return value
     
     
     # raise ValueError if item not present?
-    def remove(self, data):
+    def remove(self, value):
         '''
         Remove the first node with a specific value.
         Return true if a node was deleted, false otherwise, O(n).
         '''
         trav = self.__head
         while trav is not None:
-            if trav.data == data:
+            if trav.value == value:
                 self.__remove_node(trav)
                 return True
             trav = trav.next
@@ -243,7 +243,7 @@ class DoublyLinkedList:
         
     
     # raise a ValueError if item not found
-    def index(self, data):
+    def index(self, value):
         '''
         Return the index of the first node with a specific value
         if it exists, otherwise return None, O(n).
@@ -252,7 +252,7 @@ class DoublyLinkedList:
         trav = self.__head
         
         while trav is not None:
-            if trav.data == data:
+            if trav.value == value:
                 return index
             index += 1
             trav = trav.next
@@ -267,11 +267,11 @@ class DoublyLinkedList:
         return self.__size
     
     
-    def __contains__(self, data):
+    def __contains__(self, value):
         '''
         Return whether ot not a value is in the linked list, O(n).
         '''
-        return self.index(data) is not None
+        return self.index(value) is not None
     
     
     def __iter__(self):
@@ -289,9 +289,9 @@ class DoublyLinkedList:
         if self.__trav is None:
             raise StopIteration
         
-        data = self.__trav.data
+        value = self.__trav.value
         self.__trav = self.__trav.next
-        return data
+        return value
     
     
     def __str__(self):

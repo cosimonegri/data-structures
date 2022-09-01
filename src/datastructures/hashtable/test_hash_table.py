@@ -1,8 +1,9 @@
 '''
  * A hash table unit test.
  *
- * @author Cosimo Giovanni Negri
- * @date   28 Aug 2022
+ * @author  Cosimo Giovanni Negri
+ * @mention William Fiset, william.alexandre.fiset@gmail.com
+ * @date    28 Aug 2022
 '''
 
 import unittest
@@ -58,54 +59,55 @@ class HashTableTest(unittest.TestCase):
     
     def test_none_key(self):
         with self.assertRaises(TypeError):
-            self.dict.insert(None, 5)
+            self.dict.add(None, 5)
     
     
     def test_bool_key(self):
         with self.assertRaises(TypeError):
-            self.dict.insert(True, 3)
+            self.dict.add(True, 3)
         with self.assertRaises(TypeError):
-            self.dict.insert(False, 3)
+            self.dict.add(False, 3)
     
     
     def test_non_hashable_key(self):
         with self.assertRaises(TypeError):
-            self.dict.insert([], 3)
+            self.dict.add([], 3)
         with self.assertRaises(TypeError):
-            self.dict.insert({}, 3)
+            self.dict.add({}, 3)
         with self.assertRaises(TypeError):
-            self.dict.insert(set(), 3)
+            self.dict.add(set(), 3)
         with self.assertRaises(TypeError):
-            self.dict.insert(NonHashableObject("data"), 3)
+            self.dict.add(NonHashableObject("data"), 3)
     
     
     def test_valid_key(self):
         for i in range(self.LOOPS // 2):
-            self.dict.insert("a", 10)
+            self.dict.add("a", 10)
             self.assertEqual(self.dict.get("a"), 10)
-            self.dict.insert(1, 11)
+            self.dict.add(1, 11)
             self.assertEqual(self.dict.get(1), 11)
-            self.dict.insert(1.1, 12)
+            self.dict.add(1.1, 12)
             self.assertEqual(self.dict.get(1.1), 12)
-            self.dict.insert(("g", 2), 13)
+            self.dict.add(("g", 2), 13)
             self.assertEqual(self.dict.get(("g", 2)), 13)
             
-            object = HashableObject("data", i)
-            self.dict.insert(object, i*10)
+            object = HashableObject("data", i*100)
+            self.dict.add(object, i*10)
             self.assertEqual(self.dict.get(object), i*10)
             
             self.assertEqual(len(self.dict), 5)
+            self.assertFalse(self.dict.isempty())
             self.dict.clear()
     
     
-    def test_insert(self):
-        self.dict.insert(1, 10)
+    def test_add(self):
+        self.dict.add(1, 10)
         self.assertEqual(self.dict.get(1), 10)
-        self.dict.insert(2, 20)
+        self.dict.add(2, 20)
         self.assertEqual(self.dict.get(2), 20)
-        self.dict.insert(1, 5)
+        self.dict.add(1, 5)
         self.assertEqual(self.dict.get(1), 5)
-        self.dict.insert(1, -7)
+        self.dict.add(1, -7)
         self.assertEqual(self.dict.get(1), -7)
         self.assertEqual(len(self.dict), 2)
         
@@ -113,16 +115,16 @@ class HashTableTest(unittest.TestCase):
     def test_get(self):
         self.assertEqual(self.dict.get(1), None)
         self.assertEqual(self.dict.get(1, "nothing"), "nothing")
-        self.dict.insert(1, 10)
+        self.dict.add(1, 10)
         self.assertEqual(self.dict.get(1), 10)
     
     
     def test_remove(self):
         self.assertEqual(self.dict.remove(1), None)
         self.assertEqual(self.dict.remove(1, "nothing"), "nothing")
-        self.dict.insert(1, 10)
-        self.dict.insert(2, 20)
-        self.dict.insert(3, 30)
+        self.dict.add(1, 10)
+        self.dict.add(2, 20)
+        self.dict.add(3, 30)
         self.assertEqual(self.dict.remove(1), 10)
         self.assertEqual(self.dict.remove(2), 20)
         self.assertEqual(self.dict.remove(3), 30)
@@ -130,26 +132,26 @@ class HashTableTest(unittest.TestCase):
     
     
     def test_clear(self):
-        self.dict.insert(1, 10)
-        self.dict.insert(2, 30)
-        self.dict.insert(3, 30)
+        self.dict.add(1, 10)
+        self.dict.add(2, 30)
+        self.dict.add(3, 30)
         self.assertEqual(len(self.dict), 3)
         self.dict.clear()
         self.assertEqual(len(self.dict), 0)
-        self.dict.insert(1, 10)
-        self.dict.insert(2, 30)
-        self.dict.insert(3, 30)
+        self.dict.add(1, 10)
+        self.dict.add(2, 30)
+        self.dict.add(3, 30)
         self.assertEqual(len(self.dict), 3)
         self.dict.clear()
         self.assertEqual(len(self.dict), 0)
     
     
     def test_keys(self):
-        self.dict.insert(1, 10)
-        self.dict.insert(2, 20)
-        self.dict.insert(3, 30)
-        self.dict.insert(4, 40)
-        self.dict.insert(5, 50)
+        self.dict.add(1, 10)
+        self.dict.add(2, 20)
+        self.dict.add(3, 30)
+        self.dict.add(4, 40)
+        self.dict.add(5, 50)
         self.assertEqual(
             sorted(self.dict.keys()),
             [1, 2, 3, 4, 5]
@@ -157,11 +159,11 @@ class HashTableTest(unittest.TestCase):
     
     
     def test_values(self):
-        self.dict.insert(1, 10)
-        self.dict.insert(2, 20)
-        self.dict.insert(3, 30)
-        self.dict.insert(4, 40)
-        self.dict.insert(5, 50)
+        self.dict.add(1, 10)
+        self.dict.add(2, 20)
+        self.dict.add(3, 30)
+        self.dict.add(4, 40)
+        self.dict.add(5, 50)
         self.assertEqual(
             sorted(self.dict.values()),
             [10, 20, 30, 40, 50]
@@ -169,11 +171,11 @@ class HashTableTest(unittest.TestCase):
 
     
     def test_items(self):
-        self.dict.insert(1, 10)
-        self.dict.insert(2, 20)
-        self.dict.insert(3, 30)
-        self.dict.insert(4, 40)
-        self.dict.insert(5, 50)
+        self.dict.add(1, 10)
+        self.dict.add(2, 20)
+        self.dict.add(3, 30)
+        self.dict.add(4, 40)
+        self.dict.add(5, 50)
         self.assertEqual(
             sorted(self.dict.items()),
             [(1, 10), (2, 20), (3, 30), (4, 40), (5, 50)]
@@ -200,12 +202,12 @@ class HashTableTest(unittest.TestCase):
                 self.assertEqual(len(self.dict), len(python_dict))
                 
                 # check that the dictionaries have the same elements
-                test_iter = iter(self.dict)
+                dict_iter = iter(self.dict)
                 while True:
                     try:
-                        test_key = next(test_iter)
-                        value1 = self.dict[test_key]
-                        value2 = python_dict[test_key]
+                        temp_key = next(dict_iter)
+                        value1 = self.dict[temp_key]
+                        value2 = python_dict[temp_key]
                         self.assertEqual(value1, value2)
                     except StopIteration:
                         break
@@ -215,17 +217,17 @@ class HashTableTest(unittest.TestCase):
     
     
     def test_complex_objects(self):
-        object1 = HashableObject("data", 666)
-        object2 = HashableObject("data", 777)
-        object3 = HashableObject("data", 888)
-        object4 = HashableObject("data", 999)
+        object1 = HashableObject("data1", 666)
+        object2 = HashableObject("data2", 777)
+        object3 = HashableObject("data2", 888)
+        object4 = HashableObject("data3", 999)
         
-        self.dict.insert(object1, 1)
-        self.dict.insert(object2, 2)
-        self.dict.insert(object3, 3)
-        self.dict.insert(object4, 4)
-        self.dict.insert(object4, 40)
-        self.dict.insert(object4, -67)
+        self.dict.add(object1, 1)
+        self.dict.add(object2, 2)
+        self.dict.add(object3, 3)
+        self.dict.add(object4, 4)
+        self.dict.add(object4, 40)
+        self.dict.add(object4, -67)
         self.assertEqual(len(self.dict), 4)
         
         self.dict.remove(object1)
@@ -268,7 +270,7 @@ class HashTableTest(unittest.TestCase):
     
     def test_contains(self):
         self.assertFalse(3 in self.dict)
-        self.dict.insert(3, 5)
+        self.dict.add(3, 5)
         self.assertTrue(3 in self.dict)
         self.assertEqual(len(self.dict), 1)
     
@@ -278,9 +280,9 @@ class HashTableTest(unittest.TestCase):
             iter_obj = iter(self.dict)
             next(iter_obj)
         
-        self.dict.insert(4, 40)
-        self.dict.insert(5, 50)
-        self.dict.insert(6, 60)
+        self.dict.add(4, 40)
+        self.dict.add(5, 50)
+        self.dict.add(6, 60)
         self.assertEqual(len(self.dict), 3)
         
         keys = []
@@ -295,11 +297,11 @@ class HashTableTest(unittest.TestCase):
     
     def test_to_string(self):
         self.assertEqual(str(self.dict), "{}")
-        self.dict.insert('a', 1)
+        self.dict.add('a', 1)
         self.assertEqual(str(self.dict), "{a: 1}")
         
-        self.dict.insert('b', 2)
-        self.dict.insert('c', 3)
+        self.dict.add('b', 2)
+        self.dict.add('c', 3)
         self.assertIn(
             str(self.dict),
             ["{a: 1, b: 2, c: 3}",

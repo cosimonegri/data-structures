@@ -1,9 +1,9 @@
 '''
  * A hash table implementation using separate chaining with a doubly linked list.
  *
- * @author (original JAVA) William Fiset, william.alexandre.fiset@gmail.com
- *         (conversion to Python) Cosimo Giovanni Negri
- * @date   27 Aug 2022
+ * @author  Cosimo Giovanni Negri
+ * @mention William Fiset, william.alexandre.fiset@gmail.com
+ * @date    27 Aug 2022
 '''
 
 from ..linkedlist.doubly_linked_list import DoublyLinkedList
@@ -75,7 +75,7 @@ class HashTableSeparateChaining:
     
     def isempty(self):
         '''
-        Return whether or not the linked list is empty, O(1).
+        Return whether or not the hash table is empty, O(1).
         '''
         return self.__size == 0
         
@@ -119,7 +119,7 @@ class HashTableSeparateChaining:
     def __bucket_search_entry(self, bucket_index, key):
         '''
         Return the key's entry if the key exists in the given bucket
-        of the hash table, otherwise return None, O(1)*.
+        of the hash table, otherwise return None, O(1).
         '''
         bucket = self.__table[bucket_index]
         if bucket is None: return None
@@ -134,10 +134,11 @@ class HashTableSeparateChaining:
     def get(self, key, default=None):
         '''
         Return the key's value if the key exists in the hash table,
-        otherwise return the default value, O(1)*.
-        NOTE: if only one argument is given, the default value is
+        otherwise return the default value, O(1).
+        NOTE: If only one argument is given, the default value is
         set to None, AND the function can return None even if
         a key's value is None, so watch out...
+        NOTE: If the key type is not valid, raise an error.
         '''
         self.__check_key_type(key)
         bucket_index = self.__get_index(hash(key))
@@ -149,10 +150,10 @@ class HashTableSeparateChaining:
             return entry.value
     
     
-    def __bucket_insert_entry(self, bucket_index, entry):
+    def __bucket_add_entry(self, bucket_index, entry):
         '''
         Add an entry if the key does not exist in the given bucket
-        of the hash table, otherwise update the key's value, O(1)*
+        of the hash table, otherwise update the key's value, O(1).
         '''
         bucket = self.__table[bucket_index]
         if bucket is None:
@@ -167,16 +168,17 @@ class HashTableSeparateChaining:
             existent_entry.value = entry.value
     
     
-    def insert(self, key, value):
+    def add(self, key, value):
         '''
         Add a key-value pair if the key does not exist in the
-        hash table, otherwise update the key's value, O(1)*
+        hash table, otherwise update the key's value, O(1).
+        NOTE: If the key type is not valid, raise an error.
         '''
         self.__check_key_type(key)
         
         new_entry = Entry(key, value)
         bucket_index = self.__get_index(new_entry.hash)
-        self.__bucket_insert_entry(bucket_index, new_entry)
+        self.__bucket_add_entry(bucket_index, new_entry)
     
     
     def __bucket_remove_entry(self, bucket_index, entry):
@@ -193,10 +195,11 @@ class HashTableSeparateChaining:
         '''
         Remove a key-value pair and return the key's value
         if the key exists in the hash table,
-        otherwise return the default value, O(1)*.
-        NOTE: if only one argument is given, the default value is
+        otherwise return the default value, O(1).
+        NOTE: If only one argument is given, the default value is
         set to None, AND the function can return None even if
         a key's value is None, so watch out...
+        NOTE: If the key type is not valid, raise an error.
         '''
         self.__check_key_type(key)
         bucket_index = self.__get_index(hash(key))
@@ -264,13 +267,14 @@ class HashTableSeparateChaining:
         '''
         Return the key's value if the key exists in the hash table,
         otherwise raise an error, O(1)*.
+        NOTE: If the key type is not valid, raise an error.
         '''
         self.__check_key_type(key)
         bucket_index = self.__get_index(hash(key))
         entry = self.__bucket_search_entry(bucket_index, key)
         
         if entry is None:
-            raise KeyError(f"{key}")
+            raise KeyError(f"{key} not in hash table")
         else:
             return entry.value
     
@@ -278,29 +282,31 @@ class HashTableSeparateChaining:
     def __setitem__(self, key, value):
         '''
         Add a key-value pair if the key does not exist in the
-        hash table, otherwise update the key's value, O(1)*
+        hash table, otherwise update the key's value, O(1).
+        NOTE: If the key type is not valid, raise an error.
         '''
-        self.insert(key, value)
+        self.add(key, value)
     
     
     def __delitem__(self, key):
         '''
         Remove a key-value pair if the key exists in the hash table,
-        otherwise raise an error, O(1)*.
+        otherwise raise an error, O(1).
+        NOTE: If the key type is not valid, raise an error.
         '''
         self.__check_key_type(key)
         bucket_index = self.__get_index(hash(key))
         entry = self.__bucket_search_entry(bucket_index, key)
         
         if entry is None:
-            raise KeyError(f"{key}")
+            raise KeyError(f"{key} not in hash table")
         else:
             self.__bucket_remove_entry(bucket_index, entry)
     
     
     def __contains__(self, key):
         '''
-        Return whether ot not a key is in the hash table, O(1)*.
+        Return whether or not a key is in the hash table, O(1).
         '''
         try:
             self.__getitem__(key)
@@ -342,7 +348,9 @@ class HashTableSeparateChaining:
     
     def __str__(self):
         '''
-        Return a string to print the hash table, O(n)*.
+        Return a string to print the values
+        of the binary search tree, O(n).
+        NOTE: inorder exploration is used to find the list of values
         '''
         strings = []
         for bucket in self.__table:
