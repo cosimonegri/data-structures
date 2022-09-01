@@ -1,9 +1,11 @@
 '''
  * A stack unit test.
  *
- * @author  Cosimo Giovanni Negri
- * @mention William Fiset, william.alexandre.fiset@gmail.com
- * @date    26 Aug 2022
+ * Main inspiration: William Fiset
+ * https://github.com/williamfiset/Algorithms/blob/master/src/test/java/com/williamfiset/algorithms/datastructures/stack/StackTest.java
+ *
+ * @author Cosimo Giovanni Negri
+ * @date   26 Aug 2022
 '''
 
 import unittest

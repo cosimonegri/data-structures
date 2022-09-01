@@ -1,9 +1,11 @@
 '''
  * A hash table implementation using separate chaining with a doubly linked list.
  *
- * @author  Cosimo Giovanni Negri
- * @mention William Fiset, william.alexandre.fiset@gmail.com
- * @date    27 Aug 2022
+ * Main inspiration: William Fiset
+ * https://github.com/williamfiset/Algorithms/blob/master/src/main/java/com/williamfiset/algorithms/datastructures/hashtable/HashTableSeparateChaining.java
+ *
+ * @author Cosimo Giovanni Negri
+ * @date   27 Aug 2022
 '''
 
 from ..linkedlist.doubly_linked_list import DoublyLinkedList

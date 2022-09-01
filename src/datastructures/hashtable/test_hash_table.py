@@ -1,9 +1,11 @@
 '''
  * A hash table unit test.
  *
- * @author  Cosimo Giovanni Negri
- * @mention William Fiset, william.alexandre.fiset@gmail.com
- * @date    28 Aug 2022
+ * Main inspiration: William Fiset
+ * https://github.com/williamfiset/Algorithms/blob/master/src/test/java/com/williamfiset/algorithms/datastructures/hashtable/HashTableSeparateChainingTest.java
+ *
+ * @author Cosimo Giovanni Negri
+ * @date   28 Aug 2022
 '''
 
 import unittest

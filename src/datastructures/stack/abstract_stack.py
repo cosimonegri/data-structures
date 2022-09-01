@@ -1,7 +1,7 @@
 '''
  * An abstract base class for a stack.
  *
- * @author  Cosimo Giovanni Negri
+ * @author Cosimo Giovanni Negri
  * @date   26 Aug 2022
 '''
 

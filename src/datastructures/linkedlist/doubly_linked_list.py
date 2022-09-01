@@ -1,9 +1,11 @@
 '''
  * A doubly linked list implementation.
  *
- * @author  Cosimo Giovanni Negri
- * @mention William Fiset, william.alexandre.fiset@gmail.com
- * @date    25 Aug 2022
+ * Main inspiration: William Fiset
+ * https://github.com/williamfiset/Algorithms/blob/master/src/main/java/com/williamfiset/algorithms/datastructures/linkedlist/DoublyLinkedList.java
+ *
+ * @author Cosimo Giovanni Negri
+ * @date   25 Aug 2022
 '''
 
 class Node:

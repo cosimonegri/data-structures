@@ -1,9 +1,11 @@
 '''
  * A queue implementation using a doubly linked list.
  *
- * @author  Cosimo Giovanni Negri
- * @mention William Fiset, william.alexandre.fiset@gmail.com
- * @date    26 Aug 2022
+ * Main inspiration: William Fiset
+ * https://github.com/williamfiset/Algorithms/blob/master/src/main/java/com/williamfiset/algorithms/datastructures/queue/LinkedQueue.java
+ *
+ * @author Cosimo Giovanni Negri
+ * @date   26 Aug 2022
 '''
 
 from .abstract_queue import AbstractQueue
