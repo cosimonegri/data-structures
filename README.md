@@ -1,8 +1,6 @@
 # Data Structures Project
 
-An exemplary programmer should know data structures extremely well, in order to be able to choose the right one to solve a given problem in the most efficient way!
-
-The repository's goal is to show the Python implementations of common data structures, so that you can learn how they work and what operations they support.
+An exemplary programmer, in order to be able to solve a problem in the most efficient way, should know data structures extremely well! The repository's goal is to show the Python implementation of some of the most common data structures, so that you can learn how they work and what operations they support.
 
 The implementation details are explained in comments and docs.
 
